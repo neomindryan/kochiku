@@ -1,12 +1,13 @@
 class HealthController < ApplicationController
 
-  def index
-    build_attempts = BuildAttempt.take(2000)
+  def build_history_by_worker
+    history_depth = params[:count] || 2000
+    build_attempts = BuildAttempt.order('id DESC').limit(history_depth)
 
     @workers = {}
     build_attempts.each do |attempt|
       if @workers.has_key? attempt.builder
-        @workers[attempt.builder] += [attempt.state]
+        @workers[attempt.builder] << attempt.state
       else
         @workers[attempt.builder] = [attempt.state]
       end

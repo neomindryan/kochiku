@@ -5,8 +5,6 @@ Kochiku::Application.routes.draw do
 
   root :to => "projects#ci_projects"
 
-  resources :health
-
   # /repositories/1/build-ref?ref=master&sha=abc123
   resources :repositories do
     member do
@@ -31,6 +29,7 @@ Kochiku::Application.routes.draw do
     end
   end
   match '/XmlStatusReport.aspx', to: "projects#status_report", defaults: {:format => 'xml'}, via: :get
+  match '/worker_health', to: "health#build_history_by_worker", via: :get
 
   match '/build_attempts/:build_attempt_id/build_artifacts' => "build_artifacts#create", :via => :post
   match '/build_attempts/:id/start' => "build_attempts#start", :via => :post

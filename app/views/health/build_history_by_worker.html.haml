@@ -1,11 +1,11 @@
 %table.worker-health
   %thead
-    %th.right{:style => "width=100%"} Worker
+    %th.right Worker
     %th.left Status
   %tbody
     - @workers.each do |worker,status|
       %tr
         %td.right= worker
         %td
-          - status.take(15).each do |state|
+          - status.each do |state|
             %span.attempt-status{:class => state}
