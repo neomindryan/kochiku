@@ -5,6 +5,8 @@ Kochiku::Application.routes.draw do
 
   root :to => "projects#ci_projects"
 
+  resources :health
+
   # /repositories/1/build-ref?ref=master&sha=abc123
   resources :repositories do
     member do
